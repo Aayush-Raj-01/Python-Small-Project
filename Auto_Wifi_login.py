@@ -3,7 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-
+import os
+os.system("title WIFI LOGIN")
 
 with open("user.txt" , "r") as file:
     users = [line.strip() for line in file if line.strip()]
@@ -17,7 +18,7 @@ driver = webdriver.Chrome(
 
 success = False
 
-for user in users:
+for USER in users:
 
     try:
         driver.get(url)
@@ -30,4 +31,23 @@ for user in users:
         username.send_keys(USER)
 
 
-        password = driver.find
+        password = driver.find_element(By.ID, "password")
+        password.clear()
+        password.send_keys(USER)
+
+        login = driver.find_element(By.ID,"loginbutton")
+        login.click()
+
+        time.sleep(5)
+
+
+        button = driver.find_element(By.ID,"loginbutton")
+
+        if "sign out" in button.text.lower():
+            success = True
+            break
+    except Exception as e:
+        print(f"ERROR with {USER}: {e}")
+
+if not success:
+    print("No account found")
