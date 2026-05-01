@@ -2,19 +2,27 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 import time
-import os
-os.system("title WIFI LOGIN")
+
+with open("debug_log.txt", "a") as f:
+    f.write("SCRIPT STARTED\n")
 
 with open("user.txt" , "r") as file:
     users = [line.strip() for line in file if line.strip()]
 
 url = "http://172.16.16.16:8090/httpclient.html"
 
+options = Options()
+options.add_argument("--headless=new")
+options.add_argument("--disable-gpu")
+options.add_argument("--window-size=1920,1080")
 
-driver = webdriver.Chrome(
-    service=Service(ChromeDriverManager().install())
-)
+path = r"C:\Users\Rashmalai\Downloads\ABDM\Compressed\chromedriver-win64\chromedriver.exe"
+
+service = Service(path)
+
+driver = webdriver.Chrome(service=service,options=options)
 
 success = False
 

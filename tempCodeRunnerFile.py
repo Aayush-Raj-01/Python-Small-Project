@@ -1,10 +1,4 @@
-
-url = "http://172.16.16.16:8090/httpclient.html"
-
-
-driver = webdriver.Chrome(
-    service=Service(ChromeDriverManager().install())
-)
-
-driver.get(url)
-input("Press Enter to close...")
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
